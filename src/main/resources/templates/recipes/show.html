@@ -25,6 +25,11 @@
             <p>Porzioni: per <span th:text="${recipe.portions + ' persone'}"></span></p>
             <p>Preparazione: <span th:text="${recipe.recipeText}"></span></p>
         </div>
+        <div class="mt-3">
+            <a th:href="@{/recipes}" class="btn btn-primary">
+                <i class="fa-solid fa-arrow-left"></i>Back to list
+            </a>
+        </div>
     </section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
