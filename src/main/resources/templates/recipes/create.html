@@ -78,6 +78,22 @@
                     </div>
                 </div>
             </div>
+            <!-- categorie -->
+            <div class="col-4">
+                <h4>Categories</h4>
+                <!-- creo un form-check per ogni Category della lista categoryList -->
+                <div class="form-check" th:each="cat : ${categoryList}">
+                    <input
+                            class="form-check-input"
+                            type="checkbox"
+                            th:value="${cat.id}"
+                            th:id="|cat-${cat.id}|"
+                            th:field="*{categories}"
+                    >
+                    <label class="form-check-label" th:for="|cat-${cat.id}|" th:text="${cat.name}"></label>
+                </div>
+
+            </div>
         </div>
     </form>
     <!--bottoni-->

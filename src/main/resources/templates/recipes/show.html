@@ -25,6 +25,12 @@
             <p>Porzioni: per <span th:text="${recipe.portions + ' persone'}"></span></p>
             <p>Preparazione: <span th:text="${recipe.recipeText}"></span></p>
         </div>
+        <div class="col-6">
+            <h4>Category</h4>
+            <ul>
+                <li th:each="cat : ${recipe.categories}" th:text="${cat.name}"></li>
+            </ul>
+        </div>
         <div class="mt-3">
             <a th:href="@{/recipes}" class="btn btn-primary">
                 <i class="fa-solid fa-arrow-left"></i>Back to list
