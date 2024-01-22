@@ -15,11 +15,15 @@ public class Recipe {
     @Column(nullable = false)
     private String title;
     @NotEmpty(message = "Ingredients can't be blank")
+    @Lob
+    @Column(length = 1024)
     private String ingredients;
 
     private String photo;
     private String prepTime;
     private Integer portions;
+    @Lob
+    @Column(length = 65535)
     private String recipeText;
 
     public Integer getId() {
