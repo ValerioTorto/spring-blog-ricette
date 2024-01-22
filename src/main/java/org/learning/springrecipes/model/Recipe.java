@@ -3,6 +3,8 @@ package org.learning.springrecipes.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
+
 @Entity
 @Table(name = "recipes")
 public class Recipe {
@@ -25,6 +27,16 @@ public class Recipe {
     @Lob
     @Column(length = 65535)
     private String recipeText;
+    @ManyToMany
+    private List<Category> categories;
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
 
     public Integer getId() {
         return id;

@@ -3,6 +3,7 @@ package org.learning.springrecipes.controller;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.learning.springrecipes.model.Recipe;
+import org.learning.springrecipes.repository.CategoryRepository;
 import org.learning.springrecipes.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,9 @@ import java.util.Optional;
 public class RecipeController {
     @Autowired
     private RecipeRepository recipeRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
+
 
     //metodo index che mostra la lista delle ricette
     @GetMapping
@@ -51,6 +55,7 @@ public class RecipeController {
             Recipe recipe = new Recipe();
             //passo tramite model attributo di tipo recipe vuoto
             model.addAttribute("recipe", recipe);
+            model.addAttribute("categoryList", categoryRepository.findAll());
             return "recipes/create";
         }
 
@@ -58,6 +63,7 @@ public class RecipeController {
         public String store (@Valid @ModelAttribute("recipe") Recipe formRecipe, BindingResult bindingResult, Model
         model){
             if (bindingResult.hasErrors()) {
+                model.addAttribute("categoryList", categoryRepository.findAll());
                 return "recipes/create";
         } else{
             //se sono validi li salvo su DB
@@ -79,6 +85,7 @@ public class RecipeController {
         if (result.isPresent()) {
             // lo passo come attributo del Model
             model.addAttribute("recipe", result.get());
+            model.addAttribute("categoryList", categoryRepository.findAll());
             // ritorno il template
             return "recipes/edit";
         } else {
