@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+          crossorigin="anonymous">
+    <title>Dettagli del recipe</title>
 </head>
 <body>
-
+<main class="container">
+    <!--Section dettagli recipe-->
+    <section class="row">
+        <h1 th:text="${recipe.title}"></h1>
+        <h4 th:text="${recipe.ingredients}"></h4>
+        <hr>
+        <!--Dettagli-->
+        <div class="col-6">
+            <p>Foto:<span> <img th:src="${recipe.photo}" width="300" height="300"></span></p>
+            <p>Tempo di preparazione: <span th:text="${recipe.prepTime}"></span></p>
+            <p>Porzioni: per <span th:text="${recipe.portions + ' persone'}"></span></p>
+            <p>Preparazione: <span th:text="${recipe.recipeText}"></span></p>
+        </div>
+    </section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
 </body>
 </html>
