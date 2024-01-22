@@ -34,6 +34,9 @@
     <td th:text="${recipe.prepTime}"></td>
     <td th:text="${recipe.portions}"></td>
     <td th:text="${recipe.recipeText}"></td>
+    <td class="d-flex justify-content-between">
+        <a class="btn btn-primary" th:href="@{/recipes/show/{id}(id=${recipe.id})}">Dettaglio</a>
+    </td>
 </tr>
 </tbody>
 </table>
