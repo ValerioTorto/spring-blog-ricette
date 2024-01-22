@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,6 +68,61 @@ public class RecipeController {
 
             //se non sono validi ricarico la pagina col form e i messaggi di errore
 
+        }
+    }
+    // metodo che restituisce la pagina di modifica del Book
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        // recupero il recipe da database
+        Optional<Recipe> result = recipeRepository.findById(id);
+        // verifico se il recipe è presente
+        if (result.isPresent()) {
+            // lo passo come attributo del Model
+            model.addAttribute("recipe", result.get());
+            // ritorno il template
+            return "recipes/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");
+        }
+    }
+
+    // metodo che riceve il submit del form di edit
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, @Valid @ModelAttribute("recipe") Recipe formRecipe,
+                         BindingResult bindingResult) {
+        Optional<Recipe> result = recipeRepository.findById(id);
+        if (result.isPresent()) {
+            Recipe recipeToEdit = result.get();
+            // valido i dati del recipe
+            if (bindingResult.hasErrors()) {
+                // se ci sono errori di validazione
+                return "recipes/edit";
+            }
+
+            // se sono validi salvo il recipe su db
+           Recipe savedRecipe = recipeRepository.save(formRecipe);
+            // faccio la redirect alla pagina di dettaglio del recipe
+            return "redirect:/recipes/show/" + id;
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with id " + id + " not found");
+        }
+    }
+
+    // metodo che cancella un Recipe preso per id
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
+        // verifico se il Recipe è presente su db
+        Optional<Recipe> result = recipeRepository.findById(id);
+        if (result.isPresent()) {
+            // se c'è lo cancello
+            recipeRepository.deleteById(id);
+            // mando un messaggio di successo con la redirect
+            redirectAttributes.addFlashAttribute("redirectMessage",
+                    "Recipe " + result.get().getTitle() + " deleted!");
+            return "redirect:/recipes";
+        } else {
+            // se non c'è sollevo un'eccezione
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe with " + id + " not found");
         }
     }
 }

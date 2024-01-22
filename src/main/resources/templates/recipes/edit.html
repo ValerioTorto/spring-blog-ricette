@@ -9,20 +9,18 @@
           rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
           crossorigin="anonymous">
-    <title>Create a recipe</title>
+    <title>Edit Recipe</title>
 </head>
 <body>
-<!-- Attributi recipe(Recipe) -->
 <div class="container">
-    <h1>Create Recipe</h1>
+    <h1>Edit Recipe</h1>
     <hr>
-    <!-- Form mappato sull'oggetto book -->
+    <!--Form di edit-->
     <form
-            id="create-recipe"
+            id="edit-recipe"
             method="post"
             th:object="${recipe}"
-            th:action="@{/recipes/create}"
-            class="row"
+            th:action="@{/recipes/edit/{id}(id=${recipe.id})}"
     >
         <!--Campi dettaglio recipe-->
         <div class="col-9">
@@ -77,10 +75,13 @@
                         </ul>
                     </div>
                 </div>
-<!--bottoni-->
-<div class="col-12">
-    <button type="submit" class="btn btn-primary mt-4">Save recipe</button>
-    <a class="btn btn-primary mt-4" th:href="@{/recipes}">Cancel</a>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a class="btn btn-primary" th:href="@{/recipes}">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
